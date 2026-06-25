@@ -125,6 +125,16 @@
     .badge.tm { background: #EEEDFE; color: #3C3489; }
     .badge.cr { background: #E1F5EE; color: #0F6E56; }
 
+    .write-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-left: auto; flex-shrink: 0;
+      font-size: 12px; font-weight: 600; padding: 5px 12px;
+      border-radius: 20px; border: 1px solid #534AB7;
+      color: #534AB7; background: transparent;
+      text-decoration: none; transition: background 0.15s, color 0.15s;
+    }
+    .write-btn:hover { background: #534AB7; color: #fff; }
+
     .reveal-anim { animation: fadeUp 0.3s ease both; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .d0{animation-delay:0s} .d1{animation-delay:.05s} .d2{animation-delay:.1s}
@@ -256,7 +266,9 @@
         <div class="person-card reveal-anim d${i + 2}">
           <div class="p-avatar tm">${initials(r.name)}</div>
           <div><div class="p-name">${r.name}</div><div class="p-team">${r.team}</div></div>
-          <span class="badge tm">teammate</span>
+          <a class="write-btn" href="${r.docUrl}" target="_blank" rel="noopener">
+            <i class="ti ti-pencil"></i> Write
+          </a>
         </div>`;
     });
     d.reviewees.filter(r => r.type === "cr").forEach((r, i) => {
@@ -264,7 +276,9 @@
         <div class="person-card cross reveal-anim d${i + 6}">
           <div class="p-avatar cr">${initials(r.name)}</div>
           <div><div class="p-name">${r.name}</div><div class="p-team">${r.team}</div></div>
-          <span class="badge cr">cross-team</span>
+          <a class="write-btn" href="${r.docUrl}" target="_blank" rel="noopener">
+            <i class="ti ti-pencil"></i> Write
+          </a>
         </div>`;
     });
 
