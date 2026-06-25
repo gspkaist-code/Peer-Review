@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GESS 2026 · Peer Review</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f3;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .wrap { width: 100%; max-width: 560px; }
+
+    .screen { display: block; }
+    .screen.hidden { display: none; }
+
+    /* Login */
+    #login-screen { text-align: center; padding-top: 2rem; }
+    .logo {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      color: #888; text-transform: uppercase; margin-bottom: 2rem;
+    }
+    .title-big { font-size: 22px; font-weight: 600; margin-bottom: 0.5rem; color: #111; }
+    .subtitle { font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 2rem; }
+
+    .input-wrap { position: relative; margin-bottom: 0.75rem; }
+    .input-wrap input {
+      width: 100%; font-size: 16px; padding: 13px 48px 13px 16px;
+      border-radius: 12px; border: 1px solid #ddd;
+      background: #fff; color: #111; outline: none;
+      letter-spacing: 0.05em; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .input-wrap input:focus { border-color: #534AB7; box-shadow: 0 0 0 3px rgba(83,74,183,0.12); }
+    .input-wrap input.error { border-color: #c0392b; box-shadow: 0 0 0 3px rgba(192,57,43,0.1); }
+    .input-wrap .icon {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      font-size: 18px; color: #aaa; pointer-events: none;
+    }
+
+    .err-msg { font-size: 13px; color: #c0392b; min-height: 20px; margin-bottom: 0.75rem; }
+
+    .confirm-btn {
+      width: 100%; padding: 13px; font-size: 15px; font-weight: 600;
+      border-radius: 12px; border: none; background: #534AB7; color: #fff;
+      cursor: pointer; transition: background 0.15s, transform 0.1s;
+    }
+    .confirm-btn:hover { background: #3C3489; }
+    .confirm-btn:active { transform: scale(0.98); }
+    .confirm-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+    .spinner {
+      display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Reveal */
+    .back-btn {
+      font-size: 13px; color: #666; cursor: pointer; display: inline-flex;
+      align-items: center; gap: 6px; margin-bottom: 1.5rem;
+      background: none; border: none; padding: 0; font-family: inherit;
+    }
+    .back-btn:hover { color: #111; }
+
+    .mission-header {
+      background: #fff; border-radius: 14px; border: 1px solid #e8e8e8;
+      padding: 1.25rem; margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #EEEDFE; display: flex; align-items: center;
+      justify-content: center; font-size: 15px; font-weight: 600;
+      color: #3C3489; flex-shrink: 0;
+    }
+    .mission-name { font-size: 17px; font-weight: 600; color: #111; }
+    .mission-team { font-size: 13px; color: #777; margin-top: 3px; }
+
+    .count-bar { display: flex; gap: 10px; margin-bottom: 1.5rem; }
+    .count-card {
+      flex: 1; background: #fff; border-radius: 12px;
+      border: 1px solid #e8e8e8; padding: 12px; text-align: center;
+    }
+    .count-num { font-size: 22px; font-weight: 600; color: #111; }
+    .count-lbl { font-size: 12px; color: #888; margin-top: 3px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #aaa; margin: 1.25rem 0 0.6rem;
+    }
+    .cards { display: flex; flex-direction: column; gap: 8px; }
+
+    .person-card {
+      background: #fff; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 10px 14px; display: flex; align-items: center; gap: 12px;
+    }
+    .person-card.cross { border-left: 3px solid #5DCAA5; }
+
+    .p-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; flex-shrink: 0;
+    }
+    .p-avatar.tm { background: #EEEDFE; color: #3C3489; }
+    .p-avatar.cr { background: #E1F5EE; color: #085041; }
+
+    .p-name { font-size: 14px; color: #111; font-weight: 500; }
+    .p-team { font-size: 12px; color: #888; margin-top: 2px; }
+
+    .badge {
+      font-size: 11px; padding: 3px 9px; border-radius: 20px;
+      margin-left: auto; font-weight: 600; flex-shrink: 0;
+    }
+    .badge.tm { background: #EEEDFE; color: #3C3489; }
+    .badge.cr { background: #E1F5EE; color: #0F6E56; }
+
+    .reveal-anim { animation: fadeUp 0.3s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .d0{animation-delay:0s} .d1{animation-delay:.05s} .d2{animation-delay:.1s}
+    .d3{animation-delay:.15s} .d4{animation-delay:.2s} .d5{animation-delay:.25s}
+    .d6{animation-delay:.3s} .d7{animation-delay:.35s} .d8{animation-delay:.4s}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Login screen -->
+  <div id="login-screen" class="screen">
+    <div class="logo">GESS 2026 · Peer Review</div>
+    <div class="title-big">Check your review assignment</div>
+    <p class="subtitle">Enter your student ID to reveal the 8 people you will be reviewing.</p>
+    <div class="input-wrap">
+      <input type="text" id="sidInput" placeholder="Student ID (e.g. 20260101)" maxlength="8" inputmode="numeric" autocomplete="off" />
+      <i class="ti ti-lock icon" aria-hidden="true"></i>
+    </div>
+    <div class="err-msg" id="errMsg"></div>
+    <button class="confirm-btn" id="confirmBtn">Confirm</button>
+  </div>
+
+  <!-- Reveal screen -->
+  <div id="reveal-screen" class="screen hidden">
+    <button class="back-btn" id="backBtn">
+      <i class="ti ti-arrow-left" style="font-size:14px"></i> Back
+    </button>
+    <div class="mission-header reveal-anim d0">
+      <div class="avatar" id="r-avatar"></div>
+      <div>
+        <div class="mission-name" id="r-name"></div>
+        <div class="mission-team" id="r-team"></div>
+      </div>
+    </div>
+    <div class="count-bar reveal-anim d1">
+      <div class="count-card"><div class="count-num">4</div><div class="count-lbl">Teammates</div></div>
+      <div class="count-card"><div class="count-num">4</div><div class="count-lbl">Cross-team</div></div>
+      <div class="count-card"><div class="count-num">8</div><div class="count-lbl">Total reviewees</div></div>
+    </div>
+    <div class="section-label">Teammates</div>
+    <div class="cards" id="teammate-cards"></div>
+    <div class="section-label">Cross-team assignment</div>
+    <div class="cards" id="cross-cards"></div>
+  </div>
+
+</div>
+
+<script>
+  // ⚠️ Replace this URL with your deployed Google Apps Script Web App URL
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbxOQUvl1_pZIJsJamdreFnnSBHmobrEeQ-hGSAnTdS2nZcCwGcAZyxXSQ0nLNGAHN6m/exec";
+
+  function initials(name) {
+    return name.trim().split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase();
+  }
+
+  const input = document.getElementById("sidInput");
+  const errMsg = document.getElementById("errMsg");
+  const confirmBtn = document.getElementById("confirmBtn");
+
+  function setLoading(on) {
+    confirmBtn.disabled = on;
+    confirmBtn.innerHTML = on ? '<span class="spinner"></span>' : "Confirm";
+  }
+
+  function showError(msg) {
+    errMsg.textContent = msg;
+    input.classList.add("error");
+    setLoading(false);
+  }
+
+  function tryLogin() {
+    const sid = input.value.trim();
+    if (!sid) { showError("Please enter your student ID."); return; }
+
+    setLoading(true);
+    errMsg.textContent = "";
+    input.classList.remove("error");
+
+    const cbName = "cb_" + Date.now();
+    const script = document.createElement("script");
+    script.src = GAS_URL + "?sid=" + encodeURIComponent(sid) + "&callback=" + cbName;
+
+    const timeout = setTimeout(() => {
+      showError("Request timed out. Please try again.");
+      delete window[cbName];
+      script.remove();
+    }, 10000);
+
+    window[cbName] = function(res) {
+      clearTimeout(timeout);
+      delete window[cbName];
+      script.remove();
+      setLoading(false);
+      if (!res.success) {
+        showError(res.error || "Student ID not found. Please check and try again.");
+      } else {
+        showPerson(res.data);
+      }
+    };
+
+    script.onerror = function() {
+      clearTimeout(timeout);
+      delete window[cbName];
+      script.remove();
+      showError("Network error. Please check your connection and try again.");
+      setLoading(false);
+    };
+
+    document.head.appendChild(script);
+  }
+
+  confirmBtn.addEventListener("click", tryLogin);
+  input.addEventListener("keydown", e => { if (e.key === "Enter") tryLogin(); });
+  input.addEventListener("input", () => { input.classList.remove("error"); errMsg.textContent = ""; });
+
+  function showPerson(d) {
+    document.getElementById("r-avatar").textContent = initials(d.name);
+    document.getElementById("r-name").textContent = d.name;
+    document.getElementById("r-team").textContent = "Team " + d.team;
+
+    const tmCards = document.getElementById("teammate-cards");
+    const crCards = document.getElementById("cross-cards");
+    tmCards.innerHTML = "";
+    crCards.innerHTML = "";
+
+    d.reviewees.filter(r => r.type === "tm").forEach((r, i) => {
+      tmCards.innerHTML += `
+        <div class="person-card reveal-anim d${i + 2}">
+          <div class="p-avatar tm">${initials(r.name)}</div>
+          <div><div class="p-name">${r.name}</div><div class="p-team">${r.team}</div></div>
+          <span class="badge tm">teammate</span>
+        </div>`;
+    });
+    d.reviewees.filter(r => r.type === "cr").forEach((r, i) => {
+      crCards.innerHTML += `
+        <div class="person-card cross reveal-anim d${i + 6}">
+          <div class="p-avatar cr">${initials(r.name)}</div>
+          <div><div class="p-name">${r.name}</div><div class="p-team">${r.team}</div></div>
+          <span class="badge cr">cross-team</span>
+        </div>`;
+    });
+
+    document.getElementById("login-screen").classList.add("hidden");
+    document.getElementById("reveal-screen").classList.remove("hidden");
+  }
+
+  document.getElementById("backBtn").addEventListener("click", () => {
+    document.getElementById("reveal-screen").classList.add("hidden");
+    document.getElementById("login-screen").classList.remove("hidden");
+    input.value = "";
+    errMsg.textContent = "";
+    input.classList.remove("error");
+  });
+</script>
+</body>
+</html>
