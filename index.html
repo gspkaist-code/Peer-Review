@@ -20,16 +20,12 @@
     }
 
     .wrap { width: 100%; max-width: 560px; }
-
     .screen { display: block; }
     .screen.hidden { display: none; }
 
     /* Login */
     #login-screen { text-align: center; padding-top: 2rem; }
-    .logo {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
-      color: #888; text-transform: uppercase; margin-bottom: 2rem;
-    }
+    .logo { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: #888; text-transform: uppercase; margin-bottom: 2rem; }
     .title-big { font-size: 22px; font-weight: 600; margin-bottom: 0.5rem; color: #111; }
     .subtitle { font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 2rem; }
 
@@ -42,10 +38,7 @@
     }
     .input-wrap input:focus { border-color: #534AB7; box-shadow: 0 0 0 3px rgba(83,74,183,0.12); }
     .input-wrap input.error { border-color: #c0392b; box-shadow: 0 0 0 3px rgba(192,57,43,0.1); }
-    .input-wrap .icon {
-      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-      font-size: 18px; color: #aaa; pointer-events: none;
-    }
+    .input-wrap .icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #aaa; pointer-events: none; }
 
     .err-msg { font-size: 13px; color: #c0392b; min-height: 20px; margin-bottom: 0.75rem; }
 
@@ -88,25 +81,23 @@
     .mission-team { font-size: 13px; color: #777; margin-top: 3px; }
 
     .count-bar { display: flex; gap: 10px; margin-bottom: 1.5rem; }
-    .count-card {
-      flex: 1; background: #fff; border-radius: 12px;
-      border: 1px solid #e8e8e8; padding: 12px; text-align: center;
-    }
+    .count-card { flex: 1; background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 12px; text-align: center; }
     .count-num { font-size: 22px; font-weight: 600; color: #111; }
     .count-lbl { font-size: 12px; color: #888; margin-top: 3px; }
 
-    .section-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #aaa; margin: 1.25rem 0 0.6rem;
-    }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin: 1.25rem 0 0.6rem; }
     .cards { display: flex; flex-direction: column; gap: 8px; }
 
     .person-card {
-      background: #fff; border: 1px solid #e8e8e8; border-radius: 10px;
-      padding: 10px 14px; display: flex; align-items: center; gap: 12px;
+      background: #fff; border: 1px solid #e8e8e8; border-radius: 12px;
+      overflow: hidden; transition: box-shadow 0.15s;
     }
     .person-card.cross { border-left: 3px solid #5DCAA5; }
+    .person-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
 
+    .card-top {
+      padding: 10px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer;
+    }
     .p-avatar {
       width: 34px; height: 34px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
@@ -114,26 +105,51 @@
     }
     .p-avatar.tm { background: #EEEDFE; color: #3C3489; }
     .p-avatar.cr { background: #E1F5EE; color: #085041; }
-
     .p-name { font-size: 14px; color: #111; font-weight: 500; }
     .p-team { font-size: 12px; color: #888; margin-top: 2px; }
 
-    .badge {
-      font-size: 11px; padding: 3px 9px; border-radius: 20px;
-      margin-left: auto; font-weight: 600; flex-shrink: 0;
-    }
-    .badge.tm { background: #EEEDFE; color: #3C3489; }
-    .badge.cr { background: #E1F5EE; color: #0F6E56; }
-
-    .write-btn {
-      display: inline-flex; align-items: center; gap: 5px;
+    .shoutout-btn {
       margin-left: auto; flex-shrink: 0;
       font-size: 12px; font-weight: 600; padding: 5px 12px;
       border-radius: 20px; border: 1px solid #534AB7;
       color: #534AB7; background: transparent;
-      text-decoration: none; transition: background 0.15s, color 0.15s;
+      cursor: pointer; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: background 0.15s, color 0.15s;
     }
-    .write-btn:hover { background: #534AB7; color: #fff; }
+    .shoutout-btn:hover { background: #534AB7; color: #fff; }
+    .shoutout-btn.done { border-color: #5DCAA5; color: #0F6E56; background: #E1F5EE; }
+
+    /* Inline input panel */
+    .input-panel {
+      display: none; padding: 0 14px 14px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .input-panel.open { display: block; }
+    .input-panel textarea {
+      width: 100%; font-size: 14px; font-family: inherit;
+      padding: 10px 12px; border-radius: 10px;
+      border: 1px solid #ddd; background: #fafafa;
+      color: #111; outline: none; resize: none;
+      line-height: 1.5; margin-top: 10px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .input-panel textarea:focus { border-color: #534AB7; box-shadow: 0 0 0 3px rgba(83,74,183,0.1); background: #fff; }
+    .panel-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+    .cancel-btn {
+      font-size: 13px; color: #888; background: none; border: none;
+      cursor: pointer; font-family: inherit; padding: 6px 10px;
+    }
+    .cancel-btn:hover { color: #333; }
+    .submit-btn {
+      font-size: 13px; font-weight: 600; padding: 7px 16px;
+      border-radius: 8px; border: none; background: #534AB7;
+      color: #fff; cursor: pointer; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: background 0.15s;
+    }
+    .submit-btn:hover { background: #3C3489; }
+    .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
 
     .reveal-anim { animation: fadeUp 0.3s ease both; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -145,7 +161,6 @@
 <body>
 <div class="wrap">
 
-  <!-- Login screen -->
   <div id="login-screen" class="screen">
     <div class="logo">GESS 2026 · Peer Review</div>
     <div class="title-big">Time to share some shoutouts! 🎉</div>
@@ -158,7 +173,6 @@
     <button class="confirm-btn" id="confirmBtn">Confirm</button>
   </div>
 
-  <!-- Reveal screen -->
   <div id="reveal-screen" class="screen hidden">
     <button class="back-btn" id="backBtn">
       <i class="ti ti-arrow-left" style="font-size:14px"></i> Back
@@ -184,8 +198,9 @@
 </div>
 
 <script>
-  // ⚠️ Replace this URL with your deployed Google Apps Script Web App URL
   const GAS_URL = "https://script.google.com/macros/s/AKfycbxOQUvl1_pZIJsJamdreFnnSBHmobrEeQ-hGSAnTdS2nZcCwGcAZyxXSQ0nLNGAHN6m/exec";
+
+  let currentReviewer = null;
 
   function initials(name) {
     return name.trim().split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase();
@@ -209,7 +224,6 @@
   function tryLogin() {
     const sid = input.value.trim();
     if (!sid) { showError("Please enter your student ID."); return; }
-
     setLoading(true);
     errMsg.textContent = "";
     input.classList.remove("error");
@@ -220,26 +234,22 @@
 
     const timeout = setTimeout(() => {
       showError("Request timed out. Please try again.");
-      delete window[cbName];
-      script.remove();
+      delete window[cbName]; script.remove();
     }, 10000);
 
     window[cbName] = function(res) {
-      clearTimeout(timeout);
-      delete window[cbName];
-      script.remove();
+      clearTimeout(timeout); delete window[cbName]; script.remove();
       setLoading(false);
       if (!res.success) {
         showError(res.error || "Student ID not found. Please check and try again.");
       } else {
+        currentReviewer = { sid, name: res.data.name, team: res.data.team };
         showPerson(res.data);
       }
     };
 
     script.onerror = function() {
-      clearTimeout(timeout);
-      delete window[cbName];
-      script.remove();
+      clearTimeout(timeout); delete window[cbName]; script.remove();
       showError("Network error. Please check your connection and try again.");
       setLoading(false);
     };
@@ -250,6 +260,32 @@
   confirmBtn.addEventListener("click", tryLogin);
   input.addEventListener("keydown", e => { if (e.key === "Enter") tryLogin(); });
   input.addEventListener("input", () => { input.classList.remove("error"); errMsg.textContent = ""; });
+
+  function makeCard(r, i, animClass) {
+    const cardId = "card-" + r.name.replace(/\s+/g, "-");
+    return `
+      <div class="person-card ${r.type === "cr" ? "cross" : ""} reveal-anim ${animClass}" id="${cardId}">
+        <div class="card-top" onclick="togglePanel('${cardId}')">
+          <div class="p-avatar ${r.type}">${initials(r.name)}</div>
+          <div>
+            <div class="p-name">${r.name}</div>
+            <div class="p-team">${r.team}</div>
+          </div>
+          <button class="shoutout-btn" id="btn-${cardId}" onclick="event.stopPropagation(); togglePanel('${cardId}')">
+            <i class="ti ti-star"></i> Shoutout
+          </button>
+        </div>
+        <div class="input-panel" id="panel-${cardId}">
+          <textarea id="txt-${cardId}" rows="3" placeholder="What did ${r.name.split(' ')[0]} do that was amazing? ✨"></textarea>
+          <div class="panel-actions">
+            <button class="cancel-btn" onclick="closePanel('${cardId}')">Cancel</button>
+            <button class="submit-btn" id="sub-${cardId}" onclick="submitShoutout('${cardId}', '${r.name}', '${r.team}')">
+              <i class="ti ti-send"></i> Send
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }
 
   function showPerson(d) {
     document.getElementById("r-avatar").textContent = initials(d.name);
@@ -262,28 +298,86 @@
     crCards.innerHTML = "";
 
     d.reviewees.filter(r => r.type === "tm").forEach((r, i) => {
-      tmCards.innerHTML += `
-        <div class="person-card reveal-anim d${i + 2}">
-          <div class="p-avatar tm">${initials(r.name)}</div>
-          <div><div class="p-name">${r.name}</div><div class="p-team">${r.team}</div></div>
-          <a class="write-btn" href="${r.docUrl}" target="_blank" rel="noopener">
-            <i class="ti ti-star"></i> Shoutout
-          </a>
-        </div>`;
+      tmCards.innerHTML += makeCard(r, i, "d" + (i + 2));
     });
     d.reviewees.filter(r => r.type === "cr").forEach((r, i) => {
-      crCards.innerHTML += `
-        <div class="person-card cross reveal-anim d${i + 6}">
-          <div class="p-avatar cr">${initials(r.name)}</div>
-          <div><div class="p-name">${r.name}</div><div class="p-team">${r.team}</div></div>
-          <a class="write-btn" href="${r.docUrl}" target="_blank" rel="noopener">
-            <i class="ti ti-star"></i> Shoutout
-          </a>
-        </div>`;
+      crCards.innerHTML += makeCard(r, i, "d" + (i + 6));
     });
 
     document.getElementById("login-screen").classList.add("hidden");
     document.getElementById("reveal-screen").classList.remove("hidden");
+  }
+
+  function togglePanel(cardId) {
+    const panel = document.getElementById("panel-" + cardId);
+    const isOpen = panel.classList.contains("open");
+    // Close all panels first
+    document.querySelectorAll(".input-panel.open").forEach(p => p.classList.remove("open"));
+    if (!isOpen) {
+      panel.classList.add("open");
+      setTimeout(() => document.getElementById("txt-" + cardId).focus(), 50);
+    }
+  }
+
+  function closePanel(cardId) {
+    document.getElementById("panel-" + cardId).classList.remove("open");
+  }
+
+  function submitShoutout(cardId, targetName, targetTeam) {
+    const textarea = document.getElementById("txt-" + cardId);
+    const comment = textarea.value.trim();
+    if (!comment) { textarea.focus(); return; }
+
+    const subBtn = document.getElementById("sub-" + cardId);
+    subBtn.disabled = true;
+    subBtn.innerHTML = '<span class="spinner"></span>';
+
+    const cbName = "submit_" + Date.now();
+    const script = document.createElement("script");
+    const params = new URLSearchParams({
+      action: "submit",
+      reviewerSid: currentReviewer.sid,
+      reviewerName: currentReviewer.name,
+      reviewerTeam: currentReviewer.team,
+      targetName,
+      targetTeam,
+      comment,
+      callback: cbName
+    });
+    script.src = GAS_URL + "?" + params.toString();
+
+    const timeout = setTimeout(() => {
+      delete window[cbName]; script.remove();
+      subBtn.disabled = false;
+      subBtn.innerHTML = '<i class="ti ti-send"></i> Send';
+      alert("Request timed out. Please try again.");
+    }, 10000);
+
+    window[cbName] = function(res) {
+      clearTimeout(timeout); delete window[cbName]; script.remove();
+      if (res.success) {
+        closePanel(cardId);
+        const btn = document.getElementById("btn-" + cardId);
+        btn.className = "shoutout-btn done";
+        btn.innerHTML = '<i class="ti ti-check"></i> Sent!';
+        btn.onclick = null;
+        document.getElementById("card-" + targetName.replace(/\s+/g, "-"))
+          .querySelector(".card-top").onclick = null;
+      } else {
+        subBtn.disabled = false;
+        subBtn.innerHTML = '<i class="ti ti-send"></i> Send';
+        alert("Failed to send: " + (res.error || "Unknown error"));
+      }
+    };
+
+    script.onerror = function() {
+      clearTimeout(timeout); delete window[cbName]; script.remove();
+      subBtn.disabled = false;
+      subBtn.innerHTML = '<i class="ti ti-send"></i> Send';
+      alert("Network error. Please try again.");
+    };
+
+    document.head.appendChild(script);
   }
 
   document.getElementById("backBtn").addEventListener("click", () => {
@@ -292,6 +386,7 @@
     input.value = "";
     errMsg.textContent = "";
     input.classList.remove("error");
+    currentReviewer = null;
   });
 </script>
 </body>
